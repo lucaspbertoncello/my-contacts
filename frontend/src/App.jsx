@@ -1,5 +1,10 @@
 import Container from "./components/Container";
+import Header from "./components/Header";
 
 export default function App() {
-  return <Container>oi</Container>;
+  return (
+    <Container>
+      <Header />
+    </Container>
+  );
 }
