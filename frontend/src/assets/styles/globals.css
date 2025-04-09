@@ -7,13 +7,20 @@
 @theme {
   --font-display: "Sora", sans-serif;
 
-  /* light theme */
-  --color-background: #f6f5fc;
-  --color-main-300: #3346f0;
-  --color-main-200: #5061fc;
-  --color-main-100: #6674f4;
+  /* main */
+  --color-main-lightest: #f6f5fc;
+  --color-main-light: #e0e3ff;
+  --color-main: #6674f4;
+  --color-main-dark: #5061fc;
+  --color-main-darkest: #3346f0;
 
-  /* dark theme */
+  /* sucess */
+  --color-sucess-main: #51ca73;
+
+  /* danger */
+  --color-danger-light: #f97171;
+  --color-danger-main: #fc5050;
+  --color-danger-dark: #f63131;
 }
 
 @layer {
