@@ -6,7 +6,7 @@ export default function Header() {
       <img src={logo} alt="myContacts" />
 
       <input
-        className="h-12 px-4 mt-12 w-full max-w-[500px] bg-white outline-0 rounded-3xl drop-shadow-sm"
+        className="h-12 px-4 mt-12 w-full bg-white outline-0 rounded-3xl drop-shadow-sm"
         type="text"
         placeholder="Search contact..."
       />
