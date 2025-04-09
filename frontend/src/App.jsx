@@ -1,3 +1,5 @@
+import Container from "./components/Container";
+
 export default function App() {
-  return <h1>oi</h1>;
+  return <Container>oi</Container>;
 }
