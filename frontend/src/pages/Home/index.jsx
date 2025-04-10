@@ -1,9 +1,8 @@
-import arrow from "../assets/images/icons/arrow.svg";
+import arrow from "../../assets/images/icons/arrow.svg";
+import edit from "../../assets/images/icons/edit.svg";
+import trash from "../../assets/images/icons/delete.svg";
 
-import edit from "../assets/images/icons/edit.svg";
-import trash from "../assets/images/icons/delete.svg";
-
-export default function ContactList() {
+export default function Home() {
   return (
     <div className="mt-8">
       {/* contact list header */}
