@@ -19,7 +19,7 @@ export default function Home() {
           </strong>
 
           <a
-            href="/"
+            href="/new"
             className="text-main font-bold px-4 py-2 border-2 rounded-md transition-all hover:bg-main hover:text-white"
           >
             Add new contact
