@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import arrow from "../assets/images/icons/arrow.svg";
 
 // component to create and update contact page
-export default function PageHeader(props) {
+export default function PageHeader({ title }) {
   return (
     <div className="">
       <a href="/" className="flex items-center gap-2">
@@ -11,7 +11,7 @@ export default function PageHeader(props) {
         <span className="text-main font-semibold">Voltar</span>
       </a>
 
-      <h1 className="text-2xl text-font-900 font-bold my-3">{props.title}</h1>
+      <h1 className="text-2xl text-font-900 font-bold my-3">{title}</h1>
     </div>
   );
 }
