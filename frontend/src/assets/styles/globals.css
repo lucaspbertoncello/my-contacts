@@ -25,9 +25,3 @@
   --color-font-900: #222222;
   --color-font-200: #bcbcbc;
 }
-
-@layer {
-  button {
-    @apply cursor-pointer;
-  }
-}
