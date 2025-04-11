@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 
 import { InfinitySpin } from "react-loader-spinner";
@@ -18,3 +19,7 @@ export default function Loader({ isLoading }) {
     document.getElementById("loader-root")
   );
 }
+
+Loader.propTypes = {
+  isLoading: PropTypes.bool,
+};
