@@ -56,7 +56,7 @@ export default function Home() {
 
             {/* actions */}
             <div className="flex gap-4">
-              <a href="/">
+              <a href="/edit/123">
                 <img src={edit} alt="Edit" />
               </a>
               <button>
