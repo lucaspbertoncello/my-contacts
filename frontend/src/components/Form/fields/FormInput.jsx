@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 
-export default function FormInput({ placeholder, error }) {
+export default function FormInput({ placeholder, error, onChange }) {
   return (
     <input
       type="text"
+      onChange={onChange}
       className={`w-full bg-white outline-0 drop-shadow-sm h-12 rounded-sm px-4 border-2 transition-all
         ${
           error
@@ -18,4 +19,5 @@ export default function FormInput({ placeholder, error }) {
 FormInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   error: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
 };
