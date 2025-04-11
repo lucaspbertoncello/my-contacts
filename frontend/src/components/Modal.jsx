@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
+import ReactDOM from "react-dom";
 
 export default function Modal({ danger }) {
-  return (
+  return ReactDOM.createPortal(
     // blur
     <div
       className="
-    bg-black/60 backdrop-blur-xs
-      absolute top-0 left-0 w-full h-full
-      flex items-center justify-center
-      "
+      bg-black/60 backdrop-blur-xs
+        absolute top-0 left-0 w-full h-full
+        flex items-center justify-center
+        "
     >
       {/* container */}
       <div className="w-full max-w-[500px] bg-white rounded-sm p-6">
@@ -37,8 +38,8 @@ export default function Modal({ danger }) {
         </footer>
       </div>
       {/* container */}
-    </div>
-    // blur
+    </div>,
+    document.getElementById("modal-root")
   );
 }
 
