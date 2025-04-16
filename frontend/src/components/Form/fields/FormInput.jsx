@@ -1,11 +1,18 @@
 import PropTypes from "prop-types";
 
-export default function FormInput({ placeholder, error, value, onChange }) {
+export default function FormInput({
+  placeholder,
+  error,
+  value,
+  onChange,
+  maxPhoneLength,
+}) {
   return (
     <input
       type="text"
       value={value}
       onChange={onChange}
+      maxLength={maxPhoneLength}
       className={`w-full bg-white outline-0 drop-shadow-sm h-12 rounded-sm px-4 border-2 transition-all
         ${
           error
