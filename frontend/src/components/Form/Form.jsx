@@ -53,7 +53,9 @@ export default function Form({ buttonLabel }) {
     }
   }
 
-  console.log(errors);
+  function getErrorMessageByFieldName(fieldName) {
+    return errors.find((error) => error.fieldName === fieldName)?.message;
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -63,16 +65,18 @@ export default function Form({ buttonLabel }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName("name")}>
         <FormInput
+          error={getErrorMessageByFieldName("name")}
           placeholder="Name"
           value={name}
           onChange={handleNameChange}
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName("email")}>
         <FormInput
+          error={getErrorMessageByFieldName("email")}
           placeholder="E-mail"
           value={email}
           onChange={handleEmailChange}
