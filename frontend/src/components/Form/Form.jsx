@@ -16,8 +16,10 @@ export default function Form({ buttonLabel }) {
   const [phone, setPhone] = useState("");
   const [category, setCategory] = useState("");
 
-  const { setError, removeRepeteadErrors, getErrorMessageByFieldName } =
+  const { errors, setError, removeRepeteadErrors, getErrorMessageByFieldName } =
     useErrors();
+
+  const isFormValid = name && errors.length === 0;
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -89,7 +91,7 @@ export default function Form({ buttonLabel }) {
         </FormSelect>
       </FormGroup>
 
-      <FormButton>{buttonLabel}</FormButton>
+      <FormButton disabled={!isFormValid}>{buttonLabel}</FormButton>
     </form>
   );
 }
