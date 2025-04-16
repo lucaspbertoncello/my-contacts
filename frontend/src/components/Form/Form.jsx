@@ -1,8 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import FormGroup from "./FormGroup";
+import isEmailValid from "../../utils/isEmailValid";
 
+import FormGroup from "./FormGroup";
 import FormInput from "./fields/FormInput";
 import FormSelect from "./fields/FormSelect";
 import FormButton from "./fields/FormButton";
@@ -29,13 +30,36 @@ export default function Form({ buttonLabel }) {
     }
   }
 
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+
+    if (e.target.value && !isEmailValid(e.target.value)) {
+      const errorAlreadyExists = errors.find(
+        (error) => error.fieldName === "email"
+      );
+
+      if (errorAlreadyExists) {
+        return;
+      }
+
+      setErrors((prevState) => [
+        ...prevState,
+        { fieldName: "email", message: "E-mail is invalid" },
+      ]);
+    } else {
+      setErrors((prevState) =>
+        prevState.filter((error) => error.fieldName !== "email")
+      );
+    }
+  }
+
+  console.log(errors);
+
   function handleSubmit(e) {
     e.preventDefault();
 
     console.log({ name, email, phone, category });
   }
-
-  console.log(errors);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -51,7 +75,7 @@ export default function Form({ buttonLabel }) {
         <FormInput
           placeholder="E-mail"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange}
         />
       </FormGroup>
 
