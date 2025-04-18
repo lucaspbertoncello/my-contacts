@@ -1,10 +1,13 @@
 const express = require("express");
 require("express-async-errors");
+const cors = require("./app/middlewares/cors");
 const routes = require("./routes");
 
 const app = express();
 
+// middlewares
 app.use(express.json());
+app.use(cors);
 app.use(routes);
 app.use((error, req, res, next) => {
   console.log(error);
