@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 import arrow from "../../assets/images/icons/arrow.svg";
 import edit from "../../assets/images/icons/edit.svg";
@@ -6,9 +6,14 @@ import trash from "../../assets/images/icons/delete.svg";
 
 export default function Home() {
   const [contacts, setContacts] = useState([]);
+  const [orderBy, setOrderBy] = useState("asc");
+
+  function handleToggleOrderBy() {
+    setOrderBy((prevState) => (prevState === "asc" ? "desc" : "asc"));
+  }
 
   useEffect(() => {
-    fetch("http://localhost:3000/contacts")
+    fetch(`http://localhost:3000/contacts?orderBy=${orderBy}`)
       .then(async (result) => {
         const json = await result.json();
         setContacts(json);
@@ -16,7 +21,7 @@ export default function Home() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [orderBy]);
 
   return (
     <div>
@@ -45,7 +50,10 @@ export default function Home() {
         {/* contact list area */}
         <div>
           <header>
-            <button className="flex items-center">
+            <button
+              onClick={handleToggleOrderBy}
+              className="flex items-center cursor-pointer"
+            >
               <span className="mr-2 text-main font-bold">Nome</span>{" "}
               <img src={arrow} alt="" />
             </button>
