@@ -55,7 +55,13 @@ export default function Home() {
               className="flex items-center cursor-pointer"
             >
               <span className="mr-2 text-main font-bold">Nome</span>{" "}
-              <img src={arrow} alt="" />
+              <img
+                src={arrow}
+                alt=""
+                className={`${
+                  orderBy === "asc" ? "" : "rotate-180"
+                } transition-all`}
+              />
             </button>
           </header>
 
