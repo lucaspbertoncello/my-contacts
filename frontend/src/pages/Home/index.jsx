@@ -1,13 +1,18 @@
 import { useState, useMemo, useEffect } from "react";
 
+import Loader from "../../components/Loader";
+
 import arrow from "../../assets/images/icons/arrow.svg";
 import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/delete.svg";
+
+import delay from "../../utils/delay";
 
 export default function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState("asc");
   const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const filteredContacts = useMemo(
     () =>
@@ -26,13 +31,20 @@ export default function Home() {
   }
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`http://localhost:3000/contacts?orderBy=${orderBy}`)
       .then(async (result) => {
+        await delay();
+
         const json = await result.json();
         setContacts(json);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [orderBy]);
 
@@ -119,6 +131,8 @@ export default function Home() {
         </div>
         {/* contact list area */}
       </div>
+
+      {isLoading && <Loader />}
     </div>
   );
 }
