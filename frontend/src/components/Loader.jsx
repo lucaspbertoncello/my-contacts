@@ -6,9 +6,7 @@ import { InfinitySpin } from "react-loader-spinner";
 export default function Loader({ isLoading }) {
   return ReactDOM.createPortal(
     <div
-      className={`w-full h-full absolute top-0 left-0 bg-main-lightest/20 backdrop-blur-xs items-center justify-center ${
-        isLoading ? "flex" : "hidden"
-      }`}
+      className={`w-full h-full absolute top-0 left-0 bg-main-lightest/20 backdrop-blur-xs flex items-center justify-center`}
     >
       <InfinitySpin
         width="300"
