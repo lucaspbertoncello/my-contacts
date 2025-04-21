@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 import arrow from "../../assets/images/icons/arrow.svg";
 import edit from "../../assets/images/icons/edit.svg";
@@ -7,6 +7,19 @@ import trash from "../../assets/images/icons/delete.svg";
 export default function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState("asc");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredContacts = useMemo(
+    () =>
+      contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+    [searchTerm, contacts]
+  );
+
+  function handleSearchTermChange(e) {
+    setSearchTerm(e.target.value);
+  }
 
   function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === "asc" ? "desc" : "asc"));
@@ -29,13 +42,16 @@ export default function Home() {
         className="h-12 px-4 w-full bg-white outline-0 rounded-3xl drop-shadow-sm"
         type="text"
         placeholder="Search contact..."
+        value={searchTerm}
+        onChange={handleSearchTermChange}
       />
 
       <div className="mt-8">
         {/* contact list header */}
         <header className="flex justify-between items-center mb-4">
           <strong className="font-bold text-2xl text-font-900">
-            {contacts.length} {contacts.length === 1 ? "contacts" : "contact"}
+            {filteredContacts.length}{" "}
+            {filteredContacts.length === 1 ? "contacts" : "contact"}
           </strong>
 
           <a
@@ -49,24 +65,26 @@ export default function Home() {
 
         {/* contact list area */}
         <div>
-          <header>
-            <button
-              onClick={handleToggleOrderBy}
-              className="flex items-center cursor-pointer"
-            >
-              <span className="mr-2 text-main font-bold">Nome</span>{" "}
-              <img
-                src={arrow}
-                alt=""
-                className={`${
-                  orderBy === "asc" ? "" : "rotate-180"
-                } transition-all`}
-              />
-            </button>
-          </header>
+          {filteredContacts.length > 0 && (
+            <header>
+              <button
+                onClick={handleToggleOrderBy}
+                className="flex items-center cursor-pointer"
+              >
+                <span className="mr-2 text-main font-bold">Nome</span>{" "}
+                <img
+                  src={arrow}
+                  alt=""
+                  className={`${
+                    orderBy === "asc" ? "" : "rotate-180"
+                  } transition-all`}
+                />
+              </button>
+            </header>
+          )}
 
           {/* card */}
-          {contacts.map((contact) => (
+          {filteredContacts.map((contact) => (
             <div
               key={contact.id}
               className="flex items-center justify-between mt-2 mb-2 bg-white p-4 border border-white rounded-sm drop-shadow-sm"
