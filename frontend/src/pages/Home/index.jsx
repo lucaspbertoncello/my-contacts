@@ -1,8 +1,23 @@
+import { useEffect, useState } from "react";
+
 import arrow from "../../assets/images/icons/arrow.svg";
 import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/delete.svg";
 
 export default function Home() {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/contacts")
+      .then(async (result) => {
+        const json = await result.json();
+        setContacts(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div>
       <input
@@ -15,7 +30,7 @@ export default function Home() {
         {/* contact list header */}
         <header className="flex justify-between items-center mb-4">
           <strong className="font-bold text-2xl text-font-900">
-            3 contatos
+            {contacts.length} {contacts.length === 1 ? "contacts" : "contact"}
           </strong>
 
           <a
@@ -37,34 +52,37 @@ export default function Home() {
           </header>
 
           {/* card */}
-          <div className="flex items-center justify-between mt-2 mb-2 bg-white p-4 border border-white rounded-sm drop-shadow-sm">
-            {/* card info */}
-            <div className="flex flex-col">
-              <div className="flex items-center mb-2">
-                <strong className="text-lg text-font-900">
-                  Lucas Bertoncello
-                </strong>
-                <small className="bg-main-lighter text-main font-bold px-2 py-1 uppercase rounded-sm ml-3">
-                  Instagram
-                </small>
+          {contacts.map((contact) => (
+            <div
+              key={contact.id}
+              className="flex items-center justify-between mt-2 mb-2 bg-white p-4 border border-white rounded-sm drop-shadow-sm"
+            >
+              <div className="flex flex-col">
+                <div className="flex items-center mb-2">
+                  <strong className="text-lg text-font-900">
+                    {contact.name}
+                  </strong>
+                  {contact.categorie_name && (
+                    <small className="bg-main-lighter text-main font-bold px-2 py-1 uppercase rounded-sm ml-3">
+                      {contact.categorie_name}
+                    </small>
+                  )}
+                </div>
+
+                <span className="text-sm text-font-200">{contact.email}</span>
+                <span className="text-sm text-font-200">{contact.phone}</span>
               </div>
 
-              <span className="text-sm text-font-200">lucas@gmail.com</span>
-              <span className="text-sm text-font-200">(41) 99525-7119</span>
+              <div className="flex gap-4">
+                <a href={`/edit/${contact.id}`}>
+                  <img src={edit} alt="Edit" />
+                </a>
+                <button>
+                  <img src={trash} alt="Delete" />
+                </button>
+              </div>
             </div>
-            {/* card info */}
-
-            {/* actions */}
-            <div className="flex gap-4">
-              <a href="/edit/123">
-                <img src={edit} alt="Edit" />
-              </a>
-              <button>
-                <img src={trash} alt="Delete" />
-              </button>
-            </div>
-            {/* actions */}
-          </div>
+          ))}
           {/* card */}
         </div>
         {/* contact list area */}
