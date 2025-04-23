@@ -31,21 +31,24 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setIsLoading(true);
+    async function loadContacts() {
+      try {
+        setIsLoading(true);
 
-    fetch(`http://localhost:3000/contacts?orderBy=${orderBy}`)
-      .then(async (result) => {
-        await delay();
+        const result = await fetch("http://localhost:3000/contacts");
+        await delay(500);
 
         const json = await result.json();
+
         setContacts(json);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
         setIsLoading(false);
-      });
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
+    }
+
+    loadContacts();
   }, [orderBy]);
 
   return (
