@@ -63,7 +63,7 @@ export default function Home() {
         <header className="flex justify-between items-center mb-4">
           <strong className="font-bold text-2xl text-font-900">
             {filteredContacts.length}{" "}
-            {filteredContacts.length === 1 ? "contacts" : "contact"}
+            {filteredContacts.length === 1 ? "contact" : "contacts"}
           </strong>
 
           <a
