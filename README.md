@@ -42,7 +42,7 @@ This is a **Full Stack** project using **React** on the front-end and **Node.js 
 
 ```bash
 git clone https://github.com/lucaspbertoncello/mycontacts.git
-cd your-repository
+cd mycontacts
 ```
 
 ---
@@ -52,7 +52,7 @@ cd your-repository
 1. Navigate to the backend directory:
 
 ```bash
-cd backend
+cd api
 ```
 
 2. Install dependencies:
