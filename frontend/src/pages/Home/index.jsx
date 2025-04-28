@@ -7,6 +7,7 @@ import arrow from "../../assets/images/icons/arrow.svg";
 import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/delete.svg";
 import sad from "../../assets/images/sad.svg";
+import emptyBox from "../../assets/images/empty-box.svg";
 
 import ContactsService from "../../services/ContactsService";
 
@@ -58,24 +59,28 @@ export default function Home() {
 
   return (
     <div>
-      <input
-        className="h-12 px-4 w-full bg-white outline-0 rounded-3xl drop-shadow-sm"
-        type="text"
-        placeholder="Search contact..."
-        value={searchTerm}
-        onChange={handleSearchTermChange}
-      />
+      {contacts.length > 0 && (
+        <input
+          className="h-12 px-4 w-full bg-white outline-0 rounded-3xl drop-shadow-sm"
+          type="text"
+          placeholder="Search contact..."
+          value={searchTerm}
+          onChange={handleSearchTermChange}
+        />
+      )}
 
       <div className="mt-8">
         {/* contact list header */}
         <header
           className={`flex items-center mb-4 ${
-            !hasError
+            hasError
+              ? "justify-end border-b-2 border-b-font-100 pb-4"
+              : contacts.length > 0
               ? "justify-between"
-              : "justify-end border-b-2 border-b-font-100 pb-4"
+              : "justify-center border-b-2 border-b-font-100 pb-4"
           }`}
         >
-          {!hasError && (
+          {!hasError && contacts.length > 0 && (
             <strong className="font-bold text-2xl text-font-900">
               {filteredContacts.length}{" "}
               {filteredContacts.length === 1 ? "contact" : "contacts"}
@@ -107,6 +112,20 @@ export default function Home() {
         {/* contact list area */}
         {!hasError && (
           <div>
+            {contacts.length < 1 && (
+              <div className="flex justify-center items-center flex-col gap-4">
+                <img src={emptyBox} alt="empty" />
+                <span className="text-center text-font-200">
+                  You don't have any contacts registered yet! <br />
+                  Click the{" "}
+                  <span className="text-main font-semibold">
+                    "New Contact"
+                  </span>{" "}
+                  button above to register your first one!
+                </span>
+              </div>
+            )}
+
             {filteredContacts.length > 0 && (
               <header>
                 <button
