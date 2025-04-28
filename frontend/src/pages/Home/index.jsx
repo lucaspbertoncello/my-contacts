@@ -1,10 +1,12 @@
 import { useState, useMemo, useEffect } from "react";
 
 import Loader from "../../components/Loader";
+import FormButton from "../../components/Form/fields/FormButton";
 
 import arrow from "../../assets/images/icons/arrow.svg";
 import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/delete.svg";
+import sad from "../../assets/images/sad.svg";
 
 import ContactsService from "../../services/ContactsService";
 
@@ -13,6 +15,7 @@ export default function Home() {
   const [orderBy, setOrderBy] = useState("asc");
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   const filteredContacts = useMemo(
     () =>
@@ -39,7 +42,7 @@ export default function Home() {
 
         setContacts(contactsList);
       } catch (error) {
-        console.log(error);
+        setHasError(true);
       } finally {
         setIsLoading(false);
       }
@@ -60,11 +63,19 @@ export default function Home() {
 
       <div className="mt-8">
         {/* contact list header */}
-        <header className="flex justify-between items-center mb-4">
-          <strong className="font-bold text-2xl text-font-900">
-            {filteredContacts.length}{" "}
-            {filteredContacts.length === 1 ? "contact" : "contacts"}
-          </strong>
+        <header
+          className={`flex items-center mb-4 ${
+            !hasError
+              ? "justify-between"
+              : "justify-end border-b-2 border-b-font-100 pb-4"
+          }`}
+        >
+          {!hasError && (
+            <strong className="font-bold text-2xl text-font-900">
+              {filteredContacts.length}{" "}
+              {filteredContacts.length === 1 ? "contact" : "contacts"}
+            </strong>
+          )}
 
           <a
             href="/new"
@@ -74,6 +85,19 @@ export default function Home() {
           </a>
         </header>
         {/* contact list header */}
+
+        {hasError && (
+          // Error Container
+          <div className="flex gap-6">
+            <img src={sad} alt="sad" />
+            <div className="gap-4">
+              <span className="font-semibold text-lg text-danger-dark block mb-4">
+                An error occurred while retrieving your contacts
+              </span>
+              <FormButton>Try again</FormButton>
+            </div>
+          </div>
+        )}
 
         {/* contact list area */}
         <div>
