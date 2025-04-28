@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 
 import Loader from "../../components/Loader";
 import FormButton from "../../components/Form/fields/FormButton";
@@ -33,7 +33,7 @@ export default function Home() {
     setOrderBy((prevState) => (prevState === "asc" ? "desc" : "asc"));
   }
 
-  async function loadContacts() {
+  const loadContacts = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -46,7 +46,7 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [orderBy]);
 
   function handleTryAgain() {
     loadContacts();
@@ -54,7 +54,7 @@ export default function Home() {
 
   useEffect(() => {
     loadContacts();
-  }, [orderBy]);
+  }, [loadContacts]);
 
   return (
     <div>
