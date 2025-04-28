@@ -14,7 +14,6 @@ This is a **Full Stack** project using **React** on the front-end and **Node.js 
 **Back-end:**
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
-- [Cors](https://expressjs.com/en/resources/middleware/cors.html)
 - [PostgreSQL](https://www.postgresql.org/) (Database)
 
 ---
