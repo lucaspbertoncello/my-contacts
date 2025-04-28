@@ -8,6 +8,7 @@ This is a **Full Stack** project using **React** on the front-end and **Node.js 
 
 **Front-end:**
 - [React](https://reactjs.org/)
+- [Vite](https://vite.dev)
 - [React Router DOM](https://reactrouter.com/)
 
 **Back-end:**
