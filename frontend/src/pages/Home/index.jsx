@@ -33,21 +33,26 @@ export default function Home() {
     setOrderBy((prevState) => (prevState === "asc" ? "desc" : "asc"));
   }
 
-  useEffect(() => {
-    async function loadContacts() {
-      try {
-        setIsLoading(true);
+  async function loadContacts() {
+    try {
+      setIsLoading(true);
 
-        const contactsList = await ContactsService.listContacts(orderBy);
+      const contactsList = await ContactsService.listContacts(orderBy);
 
-        setContacts(contactsList);
-      } catch (error) {
-        setHasError(true);
-      } finally {
-        setIsLoading(false);
-      }
+      setHasError(false);
+      setContacts(contactsList);
+    } catch (error) {
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
+  }
 
+  function handleTryAgain() {
+    loadContacts();
+  }
+
+  useEffect(() => {
     loadContacts();
   }, [orderBy]);
 
@@ -94,65 +99,67 @@ export default function Home() {
               <span className="font-semibold text-lg text-danger-dark block mb-4">
                 An error occurred while retrieving your contacts
               </span>
-              <FormButton>Try again</FormButton>
+              <FormButton onClick={handleTryAgain}>Try again</FormButton>
             </div>
           </div>
         )}
 
         {/* contact list area */}
-        <div>
-          {filteredContacts.length > 0 && (
-            <header>
-              <button
-                onClick={handleToggleOrderBy}
-                className="flex items-center cursor-pointer"
-              >
-                <span className="mr-2 text-main font-bold">Nome</span>{" "}
-                <img
-                  src={arrow}
-                  alt=""
-                  className={`${
-                    orderBy === "asc" ? "" : "rotate-180"
-                  } transition-all`}
-                />
-              </button>
-            </header>
-          )}
+        {!hasError && (
+          <div>
+            {filteredContacts.length > 0 && (
+              <header>
+                <button
+                  onClick={handleToggleOrderBy}
+                  className="flex items-center cursor-pointer"
+                >
+                  <span className="mr-2 text-main font-bold">Nome</span>{" "}
+                  <img
+                    src={arrow}
+                    alt=""
+                    className={`${
+                      orderBy === "asc" ? "" : "rotate-180"
+                    } transition-all`}
+                  />
+                </button>
+              </header>
+            )}
 
-          {/* card */}
-          {filteredContacts.map((contact) => (
-            <div
-              key={contact.id}
-              className="flex items-center justify-between mt-2 mb-2 bg-white p-4 border border-white rounded-sm drop-shadow-sm"
-            >
-              <div className="flex flex-col">
-                <div className="flex items-center mb-2">
-                  <strong className="text-lg text-font-900">
-                    {contact.name}
-                  </strong>
-                  {contact.categorie_name && (
-                    <small className="bg-main-lighter text-main font-bold px-2 py-1 uppercase rounded-sm ml-3">
-                      {contact.categorie_name}
-                    </small>
-                  )}
+            {/* card */}
+            {filteredContacts.map((contact) => (
+              <div
+                key={contact.id}
+                className="flex items-center justify-between mt-2 mb-2 bg-white p-4 border border-white rounded-sm drop-shadow-sm"
+              >
+                <div className="flex flex-col">
+                  <div className="flex items-center mb-2">
+                    <strong className="text-lg text-font-900">
+                      {contact.name}
+                    </strong>
+                    {contact.categorie_name && (
+                      <small className="bg-main-lighter text-main font-bold px-2 py-1 uppercase rounded-sm ml-3">
+                        {contact.categorie_name}
+                      </small>
+                    )}
+                  </div>
+
+                  <span className="text-sm text-font-200">{contact.email}</span>
+                  <span className="text-sm text-font-200">{contact.phone}</span>
                 </div>
 
-                <span className="text-sm text-font-200">{contact.email}</span>
-                <span className="text-sm text-font-200">{contact.phone}</span>
+                <div className="flex gap-4">
+                  <a href={`/edit/${contact.id}`}>
+                    <img src={edit} alt="Edit" />
+                  </a>
+                  <button>
+                    <img src={trash} alt="Delete" />
+                  </button>
+                </div>
               </div>
-
-              <div className="flex gap-4">
-                <a href={`/edit/${contact.id}`}>
-                  <img src={edit} alt="Edit" />
-                </a>
-                <button>
-                  <img src={trash} alt="Delete" />
-                </button>
-              </div>
-            </div>
-          ))}
-          {/* card */}
-        </div>
+            ))}
+            {/* card */}
+          </div>
+        )}
         {/* contact list area */}
       </div>
 
