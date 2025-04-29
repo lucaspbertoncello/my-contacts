@@ -8,12 +8,12 @@ This is a **Full Stack** project using **React** on the front-end and **Node.js 
 
 **Front-end:**
 - [React](https://reactjs.org/)
+- [Vite](https://vite.dev)
 - [React Router DOM](https://reactrouter.com/)
 
 **Back-end:**
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
-- [Cors](https://expressjs.com/en/resources/middleware/cors.html)
 - [PostgreSQL](https://www.postgresql.org/) (Database)
 
 ---
@@ -42,7 +42,7 @@ This is a **Full Stack** project using **React** on the front-end and **Node.js 
 
 ```bash
 git clone https://github.com/lucaspbertoncello/mycontacts.git
-cd your-repository
+cd mycontacts
 ```
 
 ---
@@ -52,7 +52,7 @@ cd your-repository
 1. Navigate to the backend directory:
 
 ```bash
-cd backend
+cd api
 ```
 
 2. Install dependencies:
