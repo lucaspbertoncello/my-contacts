@@ -32,8 +32,8 @@ export default function Form({ buttonLabel }) {
         const categoriesList = await CategoriesServices.listCategories();
 
         setCategories(categoriesList);
-      } catch (error) {
-        console.log(error);
+        // eslint-disable-next-line no-empty
+      } catch {
       } finally {
         setIsLoading(false);
       }
