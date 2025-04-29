@@ -19,7 +19,7 @@ export default function Form({ buttonLabel }) {
   const [phone, setPhone] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingCategories, setisLoadingCategories] = useState(true);
 
   const { errors, setError, removeRepeteadErrors, getErrorMessageByFieldName } =
     useErrors();
@@ -27,7 +27,7 @@ export default function Form({ buttonLabel }) {
   useEffect(() => {
     async function loadCategories() {
       try {
-        setIsLoading(true);
+        setisLoadingCategories(true);
 
         const categoriesList = await CategoriesServices.listCategories();
 
@@ -35,7 +35,7 @@ export default function Form({ buttonLabel }) {
         // eslint-disable-next-line no-empty
       } catch {
       } finally {
-        setIsLoading(false);
+        setisLoadingCategories(false);
       }
     }
 
@@ -107,6 +107,7 @@ export default function Form({ buttonLabel }) {
         <FormSelect
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
+          disabled={isLoadingCategories}
         >
           <option value="" disabled>
             No category selected
@@ -121,7 +122,7 @@ export default function Form({ buttonLabel }) {
 
       <FormButton disabled={!isFormValid}>{buttonLabel}</FormButton>
 
-      {isLoading && <Loader />}
+      {isLoadingCategories && <Loader />}
     </form>
   );
 }
