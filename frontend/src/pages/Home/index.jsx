@@ -8,6 +8,7 @@ import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/delete.svg";
 import sad from "../../assets/images/sad.svg";
 import emptyBox from "../../assets/images/empty-box.svg";
+import magnifierQuestion from "../../assets/images/magnifier-question.svg";
 
 import ContactsService from "../../services/ContactsService";
 
@@ -78,7 +79,13 @@ export default function Home() {
               : contacts.length > 0
               ? "justify-between"
               : "justify-center border-b-2 border-b-font-100 pb-4"
-          }`}
+          }
+          ${
+            filteredContacts.length < 1
+              ? "border-b-2 border-b-font-100 pb-4"
+              : ""
+          }
+          `}
         >
           {!hasError && contacts.length > 0 && (
             <strong className="font-bold text-2xl text-font-900">
@@ -126,6 +133,16 @@ export default function Home() {
               </div>
             )}
 
+            {filteredContacts.length < 1 && contacts.length > 0 && (
+              <div className="flex items-center justify-between gap-4">
+                <img src={magnifierQuestion} alt="Not found" />
+                <span className="text-font-200">
+                  No results found for{" "}
+                  <span className="font-semibold">"{searchTerm}"</span>
+                </span>
+              </div>
+            )}
+
             {filteredContacts.length > 0 && (
               <header>
                 <button
@@ -143,7 +160,6 @@ export default function Home() {
                 </button>
               </header>
             )}
-
             {/* card */}
             {filteredContacts.map((contact) => (
               <div
