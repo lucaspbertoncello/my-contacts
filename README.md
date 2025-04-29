@@ -9,21 +9,21 @@ This is a **Full Stack** project using **React** on the front-end and **Node.js 
 **Front-end:**
 - [React](https://reactjs.org/)
 - [Vite](https://vite.dev)
-- [React Router DOM](https://reactrouter.com/)
+- [TailwindCSS](https://tailwindcss.com)
 
 **Back-end:**
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
-- [PostgreSQL](https://www.postgresql.org/) (Database)
+- [PostgreSQL](https://www.postgresql.org/) 
 
 ---
 
 ## ⚙️ Features
 
-- 📋 List all contacts and categories
-- ➕ Add new contacts and categories
-- 🔊 Edit existing contacts and categories
-- 🗑️ Delete contacts and categories
+- List all contacts and categories
+- Add new contacts and categories
+- Edit existing contacts and categories
+- Delete contacts and categories
 
 ---
 
@@ -42,6 +42,7 @@ This is a **Full Stack** project using **React** on the front-end and **Node.js 
 
 ```bash
 git clone https://github.com/lucaspbertoncello/mycontacts.git
+
 cd mycontacts
 ```
 
@@ -104,24 +105,16 @@ Frontend should be running at `http://localhost:5173`.
 
 ## 📄 API Endpoints
 
-| Method | Endpoint               | Description                         |
-|--------|-------------------------|-------------------------------------|
-| GET    | `/contacts`              | Get all contacts                   |
-| POST   | `/contacts`              | Create a new contact               |
-| PUT    | `/contacts/:id`          | Update a contact                   |
-| DELETE | `/contacts/:id`          | Delete a contact                   |
-| GET    | `/categories`            | Get all categories                 |
-| POST   | `/categories`            | Create a new category              |
-| PUT    | `/categories/:id`        | Update a category                  |
-| DELETE | `/categories/:id`        | Delete a category                  |
-
----
-
-## 🛠️ Future Improvements
-
-- Authentication and user management
-- File upload for contact profile pictures
-- Deployment to platforms like Vercel, Render, or Railway
+| Method | Endpoint                | Description                        |
+|--------|-------------------------|------------------------------------|
+| GET    | `/contacts`             | Get all contacts                   |
+| GET    | `/contacts/:id`         | Get contact by id                  |
+| POST   | `/contacts`             | Create a new contact               |
+| PUT    | `/contacts/:id`         | Update a contact                   |
+| DELETE | `/contacts/:id`         | Delete a contact                   |
+| GET    | `/categories`           | Get all categories                 |
+| POST   | `/categories`           | Create a new category              |
+| DELETE | `/categories/:id`       | Delete a category                  |
 
 ---
 
