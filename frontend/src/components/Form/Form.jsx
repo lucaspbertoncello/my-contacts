@@ -1,23 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import isEmailValid from "../../utils/isEmailValid";
 import formatPhone from "../../utils/formatPhone";
 import useErrors from "../../hooks/useErrors";
 
+import CategoriesServices from "../../services/CategoriesService";
+
 import FormGroup from "./FormGroup";
 import FormInput from "./fields/FormInput";
 import FormSelect from "./fields/FormSelect";
 import FormButton from "./fields/FormButton";
+import Loader from "../Loader";
 
 export default function Form({ buttonLabel }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [category, setCategory] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { errors, setError, removeRepeteadErrors, getErrorMessageByFieldName } =
     useErrors();
+
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        setIsLoading(true);
+
+        const categoriesList = await CategoriesServices.listCategories();
+
+        setCategories(categoriesList);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadCategories();
+  }, []);
 
   const isFormValid = name && errors.length === 0;
 
@@ -48,7 +71,7 @@ export default function Form({ buttonLabel }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log({ name, email, phone, category });
+    console.log({ name, email, phone, categoryId });
   }
 
   return (
@@ -82,16 +105,23 @@ export default function Form({ buttonLabel }) {
 
       <FormGroup>
         <FormSelect
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          value={categoryId}
+          onChange={(e) => setCategoryId(e.target.value)}
         >
-          <option>Instagram</option>
-          <option>Facebook</option>
-          <option>Faculdade</option>
+          <option value="" disabled>
+            No category selected
+          </option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
         </FormSelect>
       </FormGroup>
 
       <FormButton disabled={!isFormValid}>{buttonLabel}</FormButton>
+
+      {isLoading && <Loader />}
     </form>
   );
 }
