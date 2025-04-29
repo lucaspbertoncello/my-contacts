@@ -136,7 +136,7 @@ export default function Home() {
             {filteredContacts.length < 1 && contacts.length > 0 && (
               <div className="flex items-center justify-between gap-4">
                 <img src={magnifierQuestion} alt="Not found" />
-                <span className="text-font-200">
+                <span className="text-font-200 break-all">
                   No results found for{" "}
                   <span className="font-semibold">"{searchTerm}"</span>
                 </span>
