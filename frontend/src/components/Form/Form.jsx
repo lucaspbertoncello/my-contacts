@@ -13,7 +13,7 @@ import FormSelect from "./fields/FormSelect";
 import FormButton from "./fields/FormButton";
 import Loader from "../Loader";
 
-export default function Form({ buttonLabel }) {
+export default function Form({ buttonLabel, onSubmit }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -71,7 +71,7 @@ export default function Form({ buttonLabel }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log({ name, email, phone, categoryId });
+    onSubmit({ name, email, phone, categoryId });
   }
 
   return (
@@ -84,7 +84,6 @@ export default function Form({ buttonLabel }) {
           onChange={handleNameChange}
         />
       </FormGroup>
-
       <FormGroup error={getErrorMessageByFieldName("email")}>
         <FormInput
           error={getErrorMessageByFieldName("email")}
@@ -93,7 +92,6 @@ export default function Form({ buttonLabel }) {
           onChange={handleEmailChange}
         />
       </FormGroup>
-
       <FormGroup>
         <FormInput
           placeholder="Phone"
@@ -102,7 +100,6 @@ export default function Form({ buttonLabel }) {
           maxPhoneLength={"15"}
         />
       </FormGroup>
-
       <FormGroup>
         <FormSelect
           value={categoryId}
@@ -119,14 +116,13 @@ export default function Form({ buttonLabel }) {
           ))}
         </FormSelect>
       </FormGroup>
-
       <FormButton disabled={!isFormValid}>{buttonLabel}</FormButton>
-
-      {isLoadingCategories && <Loader />}
+      {isLoadingCategories && <Loader />} {/* to refactor */}
     </form>
   );
 }
 
 Form.propTypes = {
   buttonLabel: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
