@@ -25,6 +25,32 @@ class HttpClient {
 
     throw new APIError(body, response);
   }
+
+  async post(path, contact) {
+    await delay();
+
+    const response = await fetch(`${this.baseUrl}${path}`, {
+      method: "POST",
+      body: JSON.stringify(contact),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    let responseBody = null;
+
+    const contentType = response.headers.get("Content-Type");
+
+    if (contentType.includes("application/json")) {
+      responseBody = await response.json();
+    }
+
+    if (response.ok) {
+      return responseBody;
+    }
+
+    throw new APIError(responseBody, response);
+  }
 }
 
 export default HttpClient;
