@@ -1,4 +1,5 @@
 const ContactRepository = require("../repositories/ContactRepository");
+const isValidUUID = require("../utils/isValidUUID");
 
 class ContactController {
   async index(req, res) {
@@ -10,6 +11,11 @@ class ContactController {
 
   async show(req, res) {
     const { id } = req.params;
+
+    if (!isValidUUID(id)) {
+      return res.status(400).json({ error: "Invalid UUID" });
+    }
+
     const contact = await ContactRepository.findById(id);
 
     if (!contact) {
@@ -46,6 +52,10 @@ class ContactController {
     const { name, email, phone, category_id } = req.body;
     const { id } = req.params;
 
+    if (!isValidUUID(id)) {
+      return res.status(400).json({ error: "Invalid UUID" });
+    }
+
     if (!name) {
       return res.status(400).json({ error: "Name is required" });
     }
@@ -74,6 +84,10 @@ class ContactController {
 
   async delete(req, res) {
     const { id } = req.params;
+
+    if (!isValidUUID(id)) {
+      return res.status(400).json({ error: "Invalid UUID" });
+    }
 
     const contact = await ContactRepository.findById(id);
 
