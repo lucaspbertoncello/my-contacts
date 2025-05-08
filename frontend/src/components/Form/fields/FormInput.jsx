@@ -29,4 +29,5 @@ FormInput.propTypes = {
   error: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  maxPhoneLength: PropTypes.string,
 };

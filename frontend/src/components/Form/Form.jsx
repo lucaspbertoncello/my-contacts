@@ -20,6 +20,7 @@ export default function Form({ buttonLabel, onSubmit }) {
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
   const [isLoadingCategories, setisLoadingCategories] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { errors, setError, removeRepeteadErrors, getErrorMessageByFieldName } =
     useErrors();
@@ -68,10 +69,12 @@ export default function Form({ buttonLabel, onSubmit }) {
     setPhone(formatPhone(e.target.value));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    onSubmit({ name, email, phone, categoryId });
+    setIsSubmitting(true);
+    await onSubmit({ name, email, phone, categoryId });
+    setIsSubmitting(false);
   }
 
   return (
@@ -116,7 +119,10 @@ export default function Form({ buttonLabel, onSubmit }) {
           ))}
         </FormSelect>
       </FormGroup>
-      <FormButton disabled={!isFormValid}>{buttonLabel}</FormButton>
+      <FormButton disabled={!isFormValid || isSubmitting}>
+        {!isSubmitting && buttonLabel}
+        {isSubmitting && <Loader />}
+      </FormButton>
       {isLoadingCategories && <Loader />} {/* to refactor */}
     </form>
   );
