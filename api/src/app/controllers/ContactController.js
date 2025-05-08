@@ -32,6 +32,10 @@ class ContactController {
       return res.status(400).json({ error: "Name is required" });
     }
 
+    if (category_id && !isValidUUID(category_id)) {
+      return res.status(400).json({ error: "Invalid UUID" });
+    }
+
     const contactExists = await ContactRepository.findByEmail(email);
 
     if (contactExists) {
@@ -42,7 +46,7 @@ class ContactController {
       name,
       email,
       phone,
-      category_id,
+      category_id: category_id || null,
     });
 
     res.json(contact);
@@ -53,6 +57,10 @@ class ContactController {
     const { id } = req.params;
 
     if (!isValidUUID(id)) {
+      return res.status(400).json({ error: "Invalid UUID" });
+    }
+
+    if (category_id && !isValidUUID(category_id)) {
       return res.status(400).json({ error: "Invalid UUID" });
     }
 
@@ -76,7 +84,7 @@ class ContactController {
       name,
       email,
       phone,
-      category_id,
+      category_id: category_id || null,
     });
 
     res.json(contact);
