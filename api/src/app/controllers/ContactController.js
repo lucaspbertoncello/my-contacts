@@ -44,7 +44,7 @@ class ContactController {
 
     const contact = await ContactRepository.create({
       name,
-      email,
+      email: email || null,
       phone,
       category_id: category_id || null,
     });
@@ -82,7 +82,7 @@ class ContactController {
 
     const contact = await ContactRepository.update(id, {
       name,
-      email,
+      email: email || null,
       phone,
       category_id: category_id || null,
     });
