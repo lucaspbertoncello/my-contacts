@@ -31,7 +31,7 @@ This is a **Full Stack** project using **React** on the front-end and **Node.js 
 
 ### Prerequisites
 
-- [Node.js and npm](https://nodejs.org/)
+- [Node.js and Yarn](https://nodejs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com)
@@ -59,7 +59,7 @@ cd api
 2. Install dependencies:
 
 ```bash
-npm install
+yarn
 ```
 
 3. Run docker:
@@ -72,7 +72,7 @@ docker start myContactsAPI
 4. Start the backend server:
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 Backend should be running at `http://localhost:3000`.
@@ -90,13 +90,13 @@ cd frontend
 2. Install dependencies:
 
 ```bash
-npm install
+yarn
 ```
 
 3. Start the frontend:
 
 ```bash
-npm start
+yarn dev
 ```
 
 Frontend should be running at `http://localhost:5173`.
