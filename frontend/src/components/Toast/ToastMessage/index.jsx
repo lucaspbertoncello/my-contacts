@@ -7,7 +7,7 @@ export default function ToastMessage({ text, type = "default" }) {
   return (
     <div
       className={`
-        flex justify-center items-center gap-4 px-8 py-4 text-white rounded-sm mt-4
+        flex justify-center items-center gap-4 px-8 py-4 text-white rounded-sm mt-4 drop-shadow-sm
         ${type === "danger" && "bg-danger-main"}
         ${type === "sucess" && "bg-sucess-main"}
         ${type === "default" && "bg-main"}
