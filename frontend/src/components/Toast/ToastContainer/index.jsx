@@ -7,6 +7,12 @@ import { toastEventManager } from "../../../utils/toast";
 export default function ToastContainer() {
   const [messages, setMessages] = useState([]);
 
+  function handleRemoveToast(id) {
+    setMessages((prevState) =>
+      prevState.filter((message) => message.id !== id)
+    );
+  }
+
   useEffect(() => {
     function handleAddToast({ type, text }) {
       setMessages((prevState) => [
@@ -24,6 +30,8 @@ export default function ToastContainer() {
     <div className="fixed bottom-14 left-1/2 translate-x-[-50%] z-50">
       {messages.map((message) => (
         <ToastMessage
+          onRemoveMessage={handleRemoveToast}
+          id={message.id}
           key={message.id}
           type={message.type}
           text={message.text}
