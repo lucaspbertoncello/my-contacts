@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 import dangerIcon from "../../../assets/images/icons/danger.svg";
 import sucessIcon from "../../../assets/images/icons/sucess.svg";
+import { useEffect } from "react";
 
 export default function ToastMessage({
   onRemoveMessage,
@@ -12,6 +13,16 @@ export default function ToastMessage({
   function handleRemoveToast() {
     onRemoveMessage(id);
   }
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      onRemoveMessage(id);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [onRemoveMessage, id]);
 
   return (
     <div
