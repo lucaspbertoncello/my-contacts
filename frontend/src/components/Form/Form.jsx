@@ -73,8 +73,15 @@ export default function Form({ buttonLabel, onSubmit }) {
     e.preventDefault();
 
     setIsSubmitting(true);
+
     await onSubmit({ name, email, phone, categoryId });
+
     setIsSubmitting(false);
+
+    setName("");
+    setEmail("");
+    setPhone("");
+    setCategoryId("");
   }
 
   return (
