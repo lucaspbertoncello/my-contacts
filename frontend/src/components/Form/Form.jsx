@@ -30,10 +30,10 @@ const Form = forwardRef(({ buttonLabel, onSubmit }, ref) => {
     () => {
       return {
         setFieldsValues(contact) {
-          setName(contact.name);
-          setEmail(contact.email);
-          setPhone(formatPhone(contact.phone));
-          setCategoryId(contact.categorie_id);
+          setName(contact.name || "");
+          setEmail(contact.email || "");
+          setPhone(formatPhone(contact.phone) || "");
+          setCategoryId(contact.categorie_id || "");
         },
       };
     },
