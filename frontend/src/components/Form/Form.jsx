@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import PropTypes from "prop-types";
 
 import isEmailValid from "../../utils/isEmailValid";
@@ -13,7 +13,7 @@ import FormSelect from "./fields/FormSelect";
 import FormButton from "./fields/FormButton";
 import Loader from "../Loader";
 
-export default function Form({ buttonLabel, onSubmit }) {
+const Form = forwardRef(({ buttonLabel, onSubmit }, ref) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -24,6 +24,21 @@ export default function Form({ buttonLabel, onSubmit }) {
 
   const { errors, setError, removeRepeteadErrors, getErrorMessageByFieldName } =
     useErrors();
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        setFieldsValues(contact) {
+          setName(contact.name);
+          setEmail(contact.email);
+          setPhone(contact.phone);
+          setCategoryId(contact.categorie_id);
+        },
+      };
+    },
+    []
+  );
 
   useEffect(() => {
     async function loadCategories() {
@@ -133,9 +148,11 @@ export default function Form({ buttonLabel, onSubmit }) {
       {isLoadingCategories && <Loader />} {/* to refactor */}
     </form>
   );
-}
+});
 
 Form.propTypes = {
   buttonLabel: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
+
+export default Form;
