@@ -45,7 +45,7 @@ export default function EditContact() {
 
   return (
     <>
-      <PageHeader title={`Edit ${contactName}`} />
+      <PageHeader title={isLoading ? "Loading..." : `Edit ${contactName}`} />
       <Form
         ref={contactRef}
         onSubmit={handleSubmit}
