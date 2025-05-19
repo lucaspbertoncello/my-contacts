@@ -13,6 +13,8 @@ import magnifierQuestion from "../../assets/images/magnifier-question.svg";
 
 import ContactsService from "../../services/ContactsService";
 
+import toast from "../../utils/toast";
+
 export default function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState("asc");
@@ -67,9 +69,30 @@ export default function Home() {
     setContactBeingDeleted(null);
   }
 
+  const handleConfirmDeleteContact = useCallback(async () => {
+    try {
+      setIsLoading(true);
+
+      await ContactsService.deleteContact(contactBeingDeleted.id);
+
+      toast({
+        type: "sucess",
+        text: "Contact deleted sucessfully",
+      });
+    } catch {
+      toast({
+        type: "danger",
+        text: "Ocurred an error while deleting your contact",
+      });
+    } finally {
+      handleCloseDeleteModal();
+      setIsLoading(false);
+    }
+  }, [contactBeingDeleted]);
+
   useEffect(() => {
     loadContacts();
-  }, [loadContacts]);
+  }, [loadContacts, handleConfirmDeleteContact]);
 
   return (
     <div>
@@ -80,7 +103,7 @@ export default function Home() {
         cancelLabel="Cancel"
         confirmLabel="Delete"
         onCancel={handleCloseDeleteModal}
-        onConfirm={() => alert("confirmou")}
+        onConfirm={handleConfirmDeleteContact}
       />
 
       {contacts.length > 0 && (
