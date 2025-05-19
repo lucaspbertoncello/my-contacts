@@ -20,6 +20,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [contactBeingDeleted, setContactBeingDeleted] = useState(null);
 
   const filteredContacts = useMemo(
     () =>
@@ -56,6 +57,16 @@ export default function Home() {
     loadContacts();
   }
 
+  function handleDeleteContact(contact) {
+    setContactBeingDeleted(contact);
+    setIsDeleteModalVisible(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalVisible(false);
+    setContactBeingDeleted(null);
+  }
+
   useEffect(() => {
     loadContacts();
   }, [loadContacts]);
@@ -64,11 +75,11 @@ export default function Home() {
     <div>
       <Modal
         danger
-        title={`Are you sure you want to delete the contact "Lucas?"`}
+        title={`Are you sure you want to delete the contact "${contactBeingDeleted?.name}"`}
         isVisible={isDeleteModalVisible}
         cancelLabel="Cancel"
         confirmLabel="Delete"
-        onCancel={() => alert("cancelou")}
+        onCancel={handleCloseDeleteModal}
         onConfirm={() => alert("confirmou")}
       />
 
@@ -198,7 +209,10 @@ export default function Home() {
                   <a href={`/edit/${contact.id}`}>
                     <img src={edit} alt="Edit" />
                   </a>
-                  <button>
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => handleDeleteContact(contact)}
+                  >
                     <img src={trash} alt="Delete" />
                   </button>
                 </div>
