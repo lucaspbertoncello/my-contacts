@@ -19,6 +19,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
   const filteredContacts = useMemo(
     () =>
@@ -64,6 +65,7 @@ export default function Home() {
       <Modal
         danger
         title={`Are you sure you want to delete the contact "Lucas?"`}
+        isVisible={isDeleteModalVisible}
         cancelLabel="Cancel"
         confirmLabel="Delete"
         onCancel={() => alert("cancelou")}

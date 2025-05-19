@@ -4,11 +4,16 @@ import ReactDOM from "react-dom";
 export default function Modal({
   danger,
   title,
+  isVisible,
   cancelLabel,
   confirmLabel,
   onCancel,
   onConfirm,
 }) {
+  if (!isVisible) {
+    return;
+  }
+
   return ReactDOM.createPortal(
     // blur
     <div
@@ -56,8 +61,11 @@ export default function Modal({
 Modal.propTypes = {
   danger: PropTypes.bool,
   title: PropTypes.string.isRequired,
+  isVisible: PropTypes.bool.isRequired,
   cancelLabel: PropTypes.string.isRequired,
   confirmLabel: PropTypes.string.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };
 
 Modal.defaultProps = {
