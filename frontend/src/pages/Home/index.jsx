@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useCallback } from "react";
 
 import Loader from "../../components/Loader";
 import FormButton from "../../components/Form/fields/FormButton";
+import Modal from "../../components/Modal";
 
 import arrow from "../../assets/images/icons/arrow.svg";
 import edit from "../../assets/images/icons/edit.svg";
@@ -60,6 +61,15 @@ export default function Home() {
 
   return (
     <div>
+      <Modal
+        danger
+        title={`Are you sure you want to delete the contact "Lucas?"`}
+        cancelLabel="Cancel"
+        confirmLabel="Delete"
+        onCancel={() => alert("cancelou")}
+        onConfirm={() => alert("confirmou")}
+      />
+
       {contacts.length > 0 && (
         <input
           className="h-12 px-4 w-full bg-white outline-0 rounded-3xl drop-shadow-sm"

@@ -1,7 +1,14 @@
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 
-export default function Modal({ danger }) {
+export default function Modal({
+  danger,
+  title,
+  cancelLabel,
+  confirmLabel,
+  onCancel,
+  onConfirm,
+}) {
   return ReactDOM.createPortal(
     // blur
     <div
@@ -18,22 +25,25 @@ export default function Modal({ danger }) {
             danger ? "text-danger-main" : "text-font-900"
           }`}
         >
-          Tem certeza que deseja deletar o contato "Lucas"?
+          {title}
         </h1>
 
-        <p className="mt-2">Essa ação não poderá ser desfeita!</p>
+        <p className="mt-2">This action cannot be undone!</p>
 
         <footer className="mt-8 flex items-center justify-end gap-4">
-          <button className="cursor-pointer text-font-200">Cancel</button>
+          <button onClick={onCancel} className="cursor-pointer text-font-200">
+            {cancelLabel}
+          </button>
 
           <button
+            onClick={onConfirm}
             className={`cursor-pointer h-12 px-4 text-white font-semibold rounded-sm transition-all ${
               danger
                 ? `bg-danger-main hover:bg-danger-light active:bg-danger-dark`
                 : `bg-main`
             }`}
           >
-            Delete
+            {confirmLabel}
           </button>
         </footer>
       </div>
@@ -45,6 +55,9 @@ export default function Modal({ danger }) {
 
 Modal.propTypes = {
   danger: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  cancelLabel: PropTypes.string.isRequired,
+  confirmLabel: PropTypes.string.isRequired,
 };
 
 Modal.defaultProps = {
